@@ -5,6 +5,12 @@ import plotly.graph_objects as go
 from streamlit_lottie import st_lottie
 import joblib
 
+def add_features(X):
+    X = X.copy()
+    X['pulse_pressure'] = X['systolic_bp'] - X['diastolic_bp']
+    X['mean_arterial_pressure'] = (X['systolic_bp'] + 2 * X['diastolic_bp']) / 3
+    return X
+
 
 # -------------------------
 # Load Model (with caching)
