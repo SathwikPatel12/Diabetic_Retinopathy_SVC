@@ -3,22 +3,16 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from streamlit_lottie import st_lottie
-import joblib
-
-def add_features(X):
-    X = X.copy()
-    X['pulse_pressure'] = X['systolic_bp'] - X['diastolic_bp']
-    X['mean_arterial_pressure'] = (X['systolic_bp'] + 2 * X['diastolic_bp']) / 3
-    return X
-
 
 # -------------------------
 # Load Model (with caching)
 # -------------------------
+import cloudpickle
+
 @st.cache_resource
 def load_model():
-    return joblib.load('retinopathy_model_svm.pkl')
-
+    with open("retinopathy_model_svm.pkl", "rb") as f:
+        return cloudpickle.load(f)
 model = load_model()
 
 # -------------------------
