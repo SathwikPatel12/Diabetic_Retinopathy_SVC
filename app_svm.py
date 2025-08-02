@@ -3,16 +3,16 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from streamlit_lottie import st_lottie
+import joblib
+
 
 # -------------------------
 # Load Model (with caching)
 # -------------------------
-import cloudpickle
-
 @st.cache_resource
 def load_model():
-    with open("retinopathy_model_svm.pkl", "rb") as f:
-        return cloudpickle.load(f)
+    return joblib.load('retinopathy_model_svm.pkl')
+
 model = load_model()
 
 # -------------------------
